@@ -5,7 +5,11 @@ export interface InterfaceStoreState {
   messages: Immutable.List<Immutable.Map<string, string>>
 }
 
-function reducer(state: InterfaceStoreState, action: any): InterfaceStoreState {
+const init: InterfaceStoreState = {
+  messages: Immutable.List([])
+}
+
+function reducer(state: InterfaceStoreState = init, action: any): InterfaceStoreState {
   return {
     messages: message(state.messages, action)
   }
