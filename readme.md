@@ -126,7 +126,11 @@ export default Counter
 
 ### 定义状态树
 
+> 使用了Immutable不可变的数据类型
+
 ```ts
+
+import * as Immutable from 'immutable'
 
 export interface User {
   username: string;
@@ -134,8 +138,9 @@ export interface User {
 }
 
 export interface InterfaceStoreState {
-  users: User[]
+  users: Immutable.List<User>
 }
+
 ```
 
 ### 添加actions
