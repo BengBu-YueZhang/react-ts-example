@@ -8,6 +8,9 @@
     ]
   },
   "rules": {
-    "interface-name" : [true, "never-prefix"]
+    "interface-name" : [true, "never-prefix"],
+    "ordered-imports": false,
+    "import-sources-order": "any",
+    "named-imports-order": "any"
   }
 }

@@ -1,4 +1,8 @@
 import * as React from 'react';
+import * as Style from './LogIn.less'
+import * as ReactTransitionGroup from 'react-transition-group'
+
+const CSSTransition = ReactTransitionGroup.CSSTransition
 
 export interface State {
   token: string;
@@ -14,7 +18,16 @@ export default class LogIn extends React.Component<object, State> {
 
   public render () {
     return (
-      <div/>
+      <div className={Style.root}>
+        <CSSTransition
+          in={false}
+          timeout={1000}
+          classNames={'form'}
+          unmountOnExit={false}
+        >
+          <div/>
+        </CSSTransition>
+      </div>
     )
   }
 }
