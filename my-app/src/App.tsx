@@ -1,7 +1,9 @@
 import * as React from 'react';
 import './App.css';
 
-import HelloReactTs from './components/HelloReactTs'
+import Counter from './components/Counter';
+import HelloReactTs from './components/HelloReactTs';
+
 
 class App extends React.Component {
   public render() {
@@ -10,6 +12,7 @@ class App extends React.Component {
         <HelloReactTs
           name={'赵晨'}
         />
+        <Counter/>
       </div>
     );
   }
