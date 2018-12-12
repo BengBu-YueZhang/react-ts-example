@@ -11,6 +11,7 @@
     "interface-name" : [true, "never-prefix"],
     "ordered-imports": false,
     "import-sources-order": "any",
-    "named-imports-order": "any"
+    "named-imports-order": "any",
+    "no-console": false
   }
 }

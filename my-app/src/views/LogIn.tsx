@@ -1,15 +1,25 @@
 import * as React from 'react';
 import * as Style from './LogIn.less'
 import * as ReactTransitionGroup from 'react-transition-group'
+import { Form, Icon, Input, Button } from 'antd';
 
 const CSSTransition = ReactTransitionGroup.CSSTransition
+const FormItem = Form.Item
+
+function hasErrors(fieldsError: object) {
+  return Object.keys(fieldsError).some(field => fieldsError[field]);
+}
 
 export interface State {
   token: string;
 }
 
-export default class LogIn extends React.Component<object, State> {
-  constructor (props: object) {
+export interface Props {
+  form: any;
+}
+
+class LogIn extends React.Component<Props, State> {
+  constructor (props: Props) {
     super(props)
     this.state = {
       token: ''
@@ -17,6 +27,8 @@ export default class LogIn extends React.Component<object, State> {
   }
 
   public render () {
+    const { getFieldDecorator, getFieldError, getFieldsError, isFieldTouched } = this.props.form;
+    const tokenError = isFieldTouched('token') && getFieldError('token');
     return (
       <div className={Style.root}>
         <CSSTransition
@@ -25,9 +37,44 @@ export default class LogIn extends React.Component<object, State> {
           classNames={'form'}
           unmountOnExit={false}
         >
-          <div/>
+          <Form>
+            <FormItem
+              validateStatus={tokenError ? 'error' : undefined}
+            >
+              {
+                getFieldDecorator(
+                  'token',
+                  {
+                    rules: [{ required: true, message: '请输入您的token' }],
+                  }
+                )(
+                  <Input
+                    prefix={
+                      <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                    }
+                    placeholder="token"
+                    type="password"
+                  />
+                )
+              }
+            </FormItem>
+            <FormItem>
+              <Button
+                type="primary"
+                htmlType="submit"
+                disabled={
+                  hasErrors(getFieldsError())
+                }
+              >
+                登录
+              </Button>
+            </FormItem>
+          </Form>
         </CSSTransition>
       </div>
     )
   }
 }
+
+export default Form.create()(LogIn)
+
