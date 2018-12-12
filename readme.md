@@ -180,3 +180,46 @@ export function deleteTodo(index: number): InterfaceDeleteTodo {
 ```
 
 ### 添加reducer
+
+
+```js
+
+// index.ts
+import * as Immutable from 'immutable'
+import message from './message'
+
+export interface InterfaceStoreState {
+  messages: Immutable.List<Immutable.Map<string, string>>
+}
+
+function reducer(state: InterfaceStoreState, action: any): InterfaceStoreState {
+  return {
+    messages: message(state.messages, action)
+  }
+}
+
+export default reducer
+
+
+// message.ts
+import * as Immutable from 'immutable'
+import * as Actions from '../actions/index'
+
+function users (
+  state: Immutable.List<Immutable.Map<string, string>>,
+  action: Actions.InterfaceAddTodo | Actions.InterfaceDeleteTodo
+): Immutable.List<Immutable.Map<string, string>>{
+  switch (action.type) {
+    case Actions.ADD_TODO:
+      return state.push(Immutable.Map({
+        message: action.message
+      }))
+    case Actions.DELETE_TODO:
+      return state.delete(action.index)
+    default:
+      return state
+  }
+}
+
+export default users
+```
