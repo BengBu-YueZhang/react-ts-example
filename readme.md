@@ -244,7 +244,7 @@ export interface InterfaceProps {
 }
 
 class Message extends React.Component<InterfaceProps, object> {
-  render () {
+  public render () {
     return <div>{this.props.messages.size}</div>
   }
 }
