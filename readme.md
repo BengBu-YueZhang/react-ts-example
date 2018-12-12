@@ -110,3 +110,5 @@ class Counter extends React.Component<InterfaceProps, InterfaceState> {
 
 export default Counter
 ```
+
+## 添加状态管理
