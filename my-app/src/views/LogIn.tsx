@@ -14,7 +14,7 @@ export default class LogIn extends React.Component<object, State> {
 
   public render () {
     return (
-      <div>登录页</div>
+      <div/>
     )
   }
 }
