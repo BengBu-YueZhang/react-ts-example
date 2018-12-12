@@ -1,3 +1,14 @@
+## 使用
+
+```shell
+
+git clone https://github.com/BengBu-YueZhang/react-ts-demo.git
+
+yarn install
+
+yarn start
+```
+
 ## 安装
 
 ```shell
