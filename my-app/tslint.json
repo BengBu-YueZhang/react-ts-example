@@ -12,6 +12,7 @@
     "ordered-imports": false,
     "import-sources-order": "any",
     "named-imports-order": "any",
-    "no-console": false
+    "no-console": false,
+    "jsx-no-lambda": false
   }
 }

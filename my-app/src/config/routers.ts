@@ -1,14 +1,16 @@
 export interface Router {
-  name: string
+  name: string;
+  requiresAuth: boolean;
 }
 
 export interface RouterMap {
-  [key: string]: Router
+  [key: string]: Router;
 }
 
 const routerMap: RouterMap = {
   '/users': {
-    name: '用户列表'
+    name: '用户列表',
+    requiresAuth: false
   }
 }
 

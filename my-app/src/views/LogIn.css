@@ -18,7 +18,7 @@
 
 .form-enter-active {
   opacity: 1;
-  transition: all 500ms ease-out;
+  transition: all 1000ms ease-out;
 }
 
 .form-enter-done {
