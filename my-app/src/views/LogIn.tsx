@@ -1,12 +1,12 @@
 import * as React from 'react';
-import * as Style from './LogIn.less'
-import * as ReactTransitionGroup from 'react-transition-group'
+import * as Styles from './LogIn.css';
+import * as ReactTransitionGroup from 'react-transition-group';
 import { Form, Icon, Input, Button } from 'antd';
 
-const CSSTransition = ReactTransitionGroup.CSSTransition
-const FormItem = Form.Item
+const CSSTransition = ReactTransitionGroup.CSSTransition;
+const FormItem = Form.Item;
 
-function hasErrors(fieldsError: object) {
+function hasErrors(fieldsError: object): boolean {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
@@ -30,7 +30,7 @@ class LogIn extends React.Component<Props, State> {
     const { getFieldDecorator, getFieldError, getFieldsError, isFieldTouched } = this.props.form;
     const tokenError = isFieldTouched('token') && getFieldError('token');
     return (
-      <div className={Style.root}>
+      <div className={Styles.wrapper}>
         <CSSTransition
           in={false}
           timeout={1000}
