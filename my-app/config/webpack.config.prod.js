@@ -14,6 +14,7 @@ const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const tsImportPluginFactory = require('ts-import-plugin');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -165,6 +166,13 @@ module.exports = {
                   // disable type checker - we will use it in fork plugin
                   transpileOnly: true,
                   configFile: paths.appTsProdConfig,
+                  getCustomTransformers: () => ({
+                    before: [ tsImportPluginFactory({
+                      libraryDirectory: 'es',
+                      libraryName: 'antd',
+                      style: 'css',
+                    }) ]
+                  })
                 },
               },
             ],
@@ -183,6 +191,55 @@ module.exports = {
           // in the main CSS file.
           {
             test: /\.css$/,
+            exclude: /node_modules/,
+            loader: ExtractTextPlugin.extract(
+              Object.assign(
+                {
+                  fallback: {
+                    loader: require.resolve('style-loader'),
+                    options: {
+                      hmr: false,
+                    },
+                  },
+                  use: [
+                    {
+                      loader: require.resolve('css-loader'),
+                      options: {
+                        importLoaders: 1,
+                        minimize: true,
+                        sourceMap: shouldUseSourceMap,
+                      },
+                    },
+                    {
+                      loader: require.resolve('postcss-loader'),
+                      options: {
+                        // Necessary for external CSS imports to work
+                        // https://github.com/facebookincubator/create-react-app/issues/2677
+                        ident: 'postcss',
+                        plugins: () => [
+                          require('postcss-flexbugs-fixes'),
+                          autoprefixer({
+                            browsers: [
+                              '>1%',
+                              'last 4 versions',
+                              'Firefox ESR',
+                              'not ie < 9', // React doesn't support IE8 anyway
+                            ],
+                            flexbox: 'no-2009',
+                          }),
+                        ],
+                      },
+                    },
+                  ],
+                },
+                extractTextPluginOptions
+              )
+            ),
+            // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+          },
+          {
+            test: /\.css$/,
+            exclude: /node_modules/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
@@ -198,6 +255,9 @@ module.exports = {
                       options: {
                         modules: true,
                         namedExport: true,
+                        camelCase: true,
+                        importLoaders: 1,
+                        minimize: true,
                         sourceMap: shouldUseSourceMap,
                       },
                     },
