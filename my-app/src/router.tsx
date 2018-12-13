@@ -25,7 +25,7 @@ export default class RouterConfig extends React.Component {
               ({ location }) => {
                 return ( 
                   <Switch location={location}>
-                    <Redirect from="/" to="/login" exact={true} />
+                    <Redirect from="/" to="/dashboard" exact={true} />
                     <Route path={'/login'} component={LogIn} />
                     <LayoutView>
                       <TransitionGroup>
