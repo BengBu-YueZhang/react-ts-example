@@ -3,7 +3,7 @@ import * as Styles from './LayoutView.css';
 import { Layout } from 'antd';
 
 const Sider = Layout.Sider
-const Content = Layout.Sider
+const Content = Layout.Content
 
 export interface Props {
   children?: any
@@ -14,7 +14,7 @@ export default class LayoutView extends React.Component<Props, object> {
     return (
       <Layout className={Styles.layout}>
         <Sider className={Styles.sider}>Sider</Sider>
-        <Layout>
+        <Layout className={Styles.contentWrapper}>
           <Content className={Styles.content}>
             {
               this.props.children
