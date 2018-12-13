@@ -1,0 +1,23 @@
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-button {
+  flex: 0 0 32px;
+}
+
+.right-button {
+  flex: 0 0 32px;
+}
+
+.middle-view {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.middle-content {
+  display: table;
+}

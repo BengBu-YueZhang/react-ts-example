@@ -2,12 +2,13 @@ import * as React from 'react';
 import * as Styles from './LayoutView.css';
 import { Layout } from 'antd';
 import Breadcrumbs from './Breadcrumbs';
+import RouterRecord from './RouterRecord';
 
 const Sider = Layout.Sider
 const Content = Layout.Content
 
 export interface Props {
-  children?: any
+  children: JSX.Element[] | JSX.Element
 }
 
 export default class LayoutView extends React.Component<Props, object> {
@@ -16,6 +17,7 @@ export default class LayoutView extends React.Component<Props, object> {
       <Layout className={Styles.layout}>
         <Sider className={Styles.sider}>Sider</Sider>
         <Layout className={Styles.contentWrapper}>
+          <RouterRecord/>
           <Breadcrumbs/>
           <Content className={Styles.content}>
             {
