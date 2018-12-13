@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as Styles from './LogIn.css';
 import * as ReactTransitionGroup from 'react-transition-group';
 import { Form, Icon, Input, Button } from 'antd';
-import './LogIn.css'
 
 const CSSTransition = ReactTransitionGroup.CSSTransition;
 const FormItem = Form.Item;
@@ -13,6 +12,7 @@ function hasErrors(fieldsError: object): boolean {
 
 export interface State {
   token: string;
+  form: boolean;
 }
 
 export interface Props {
@@ -23,8 +23,15 @@ class LogIn extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props)
     this.state = {
-      token: ''
+      form: false,
+      token: '',
     }
+  }
+
+  public componentDidMount (): void {
+    this.setState({
+      form: true
+    })
   }
 
   public render () {
@@ -33,46 +40,56 @@ class LogIn extends React.Component<Props, State> {
     return (
       <div className={Styles.wrapper}>
         <CSSTransition
-          in={false}
+          in={this.state.form}
           timeout={1000}
-          classNames={'form'}
-          unmountOnExit={false}
+          classNames={{
+            enter: Styles['form-enter'],
+            enterActive: Styles['form-enter-active'],
+            enterDone: Styles['form-enter-done']
+          }}
+          unmountOnExit={true}
         >
-          <div className={Styles.root}>
-            <Form>
-              <FormItem
-                validateStatus={tokenError ? 'error' : undefined}
-              >
-                {
-                  getFieldDecorator(
-                    'token',
-                    {
-                      rules: [{ required: true, message: '请输入您的token' }],
-                    }
-                  )(
-                    <Input
-                      prefix={
-                        <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+          {
+            () => {
+              return (
+                <div className={Styles.root}>
+                  <Form>
+                    <FormItem
+                      validateStatus={tokenError ? 'error' : undefined}
+                    >
+                      {
+                        getFieldDecorator(
+                          'token',
+                          {
+                            rules: [{ required: true, message: '请输入您的token' }],
+                          }
+                        )(
+                          <Input
+                            prefix={
+                              <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                            }
+                            placeholder="Access Token"
+                          />
+                        )
                       }
-                      placeholder="Access Token"
-                    />
-                  )
-                }
-              </FormItem>
-              <FormItem>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  disabled={
-                    hasErrors(getFieldsError())
-                  }
-                  block={true}
-                >
-                  登录
-                </Button>
-              </FormItem>
-            </Form>
-          </div>
+                    </FormItem>
+                    <FormItem>
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        disabled={
+                          hasErrors(getFieldsError())
+                        }
+                        block={true}
+                      >
+                        登录
+                      </Button>
+                    </FormItem>
+                  </Form>
+                </div>
+              )
+            }
+          }
         </CSSTransition>
       </div>
     )
