@@ -2,9 +2,7 @@ import * as React from 'react';
 import * as Styles from './LogIn.css';
 import * as ReactTransitionGroup from 'react-transition-group';
 import { Form, Icon, Input, Button } from 'antd';
-
-console.log(Styles) // {}
-console.log(Styles.wrapper) // undefined
+import './LogIn.css'
 
 const CSSTransition = ReactTransitionGroup.CSSTransition;
 const FormItem = Form.Item;
@@ -40,39 +38,41 @@ class LogIn extends React.Component<Props, State> {
           classNames={'form'}
           unmountOnExit={false}
         >
-          <Form>
-            <FormItem
-              validateStatus={tokenError ? 'error' : undefined}
-            >
-              {
-                getFieldDecorator(
-                  'token',
-                  {
-                    rules: [{ required: true, message: '请输入您的token' }],
-                  }
-                )(
-                  <Input
-                    prefix={
-                      <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
-                    }
-                    placeholder="token"
-                    type="password"
-                  />
-                )
-              }
-            </FormItem>
-            <FormItem>
-              <Button
-                type="primary"
-                htmlType="submit"
-                disabled={
-                  hasErrors(getFieldsError())
-                }
+          <div className={Styles.root}>
+            <Form>
+              <FormItem
+                validateStatus={tokenError ? 'error' : undefined}
               >
-                登录
-              </Button>
-            </FormItem>
-          </Form>
+                {
+                  getFieldDecorator(
+                    'token',
+                    {
+                      rules: [{ required: true, message: '请输入您的token' }],
+                    }
+                  )(
+                    <Input
+                      prefix={
+                        <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                      }
+                      placeholder="Access Token"
+                    />
+                  )
+                }
+              </FormItem>
+              <FormItem>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={
+                    hasErrors(getFieldsError())
+                  }
+                  block={true}
+                >
+                  登录
+                </Button>
+              </FormItem>
+            </Form>
+          </div>
         </CSSTransition>
       </div>
     )
