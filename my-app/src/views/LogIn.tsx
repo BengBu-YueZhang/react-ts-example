@@ -3,6 +3,9 @@ import * as Styles from './LogIn.css';
 import * as ReactTransitionGroup from 'react-transition-group';
 import { Form, Icon, Input, Button } from 'antd';
 
+console.log(Styles) // {}
+console.log(Styles.wrapper) // undefined
+
 const CSSTransition = ReactTransitionGroup.CSSTransition;
 const FormItem = Form.Item;
 
