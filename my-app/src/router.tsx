@@ -23,27 +23,30 @@ export default class RouterConfig extends React.Component {
           <Route
             render={
               ({ location }) => {
-                return (
-                  <TransitionGroup>
-                    <CSSTransition
-                      key={location.key}
-                      classNames={{
-                        enter: Styles.fadeEnter,
-                        enterActive: Styles.fadeEnterActive,
-                        enterDone: Styles.fadeEnterDone
-                      }}
-                      timeout={300}
-                    >
-                      <Switch location={location}>
-                        <Redirect from="/" to="/login" exact={true} />
-                        <Route path={'/login'} component={LogIn} />
-                        <LayoutView>
-                          <AuthorizedRoute path="/users" component={Users}/>
-                          <AuthorizedRoute path='/dashboard' component={Dashboard}/>
-                        </LayoutView>
-                      </Switch>
-                    </CSSTransition>
-                  </TransitionGroup>
+                return ( 
+                  <Switch location={location}>
+                    <Redirect from="/" to="/login" exact={true} />
+                    <Route path={'/login'} component={LogIn} />
+                    <LayoutView>
+                      <TransitionGroup>
+                        <CSSTransition
+                          key={location.pathname}
+                          classNames={{
+                            enter: Styles.fadeEnter,
+                            enterActive: Styles.fadeEnterActive,
+                            enterDone: Styles.fadeEnterDone,
+                            exit: Styles.fadeExit
+                          }}
+                          timeout={300}
+                        >
+                          <Switch location={location}>
+                            <AuthorizedRoute path="/users" component={Users}/>
+                            <AuthorizedRoute path='/dashboard' component={Dashboard}/>
+                          </Switch>
+                        </CSSTransition>
+                      </TransitionGroup>
+                    </LayoutView>
+                  </Switch>
                 )
               }
             }

@@ -10,3 +10,7 @@
 .fade-enter-done {
   opacity: 1;
 }
+
+.fade-exit {
+  opacity: 0;
+}
