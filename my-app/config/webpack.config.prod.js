@@ -191,7 +191,7 @@ module.exports = {
           // in the main CSS file.
           {
             test: /\.css$/,
-            exclude: /node_modules/,
+            include: /node_modules/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
