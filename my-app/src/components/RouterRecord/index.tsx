@@ -2,92 +2,18 @@ import * as React from 'react';
 import TabScroll from '../TabScroll';
 import * as Styles from './index.css';
 
+// interface State {
+// }
+
+// interface Props {
+// }
+
 class RouterRecord extends React.Component<object, object> {
   public render () {
     return (
       <div className={Styles.root}>
         <TabScroll>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>123</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>456</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
-          <div className={Styles.item}>789</div>
+          <React.Fragment/>
         </TabScroll>
       </div>
     )

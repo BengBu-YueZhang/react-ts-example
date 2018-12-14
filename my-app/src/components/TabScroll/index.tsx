@@ -2,8 +2,13 @@ import * as React from 'react';
 import { Icon } from 'antd';
 import * as Styles from './index.css';
 
+enum Direction {
+  Left = 'left',
+  Right = 'right'
+}
+
 interface Props {
-  children: JSX.Element[] | JSX.Element;
+  children: any;
 }
 
 interface State {
@@ -16,9 +21,10 @@ interface TabScrollInterface {
   viewRef: React.RefObject<HTMLDivElement>;
   contentRef: React.RefObject<HTMLDivElement>;
   timer: number;
-  handleButtonClick: (direction: string) => void;
+  handleButtonClick: (direction: Direction) => void;
   setTranslateX: () => void
   getDomWidth: (callback: () => {}) => void
+  onChangeContentWidth: (current: number, prev: number) => void
 }
 
 class TabScroll extends React.Component<Props, State> implements TabScrollInterface {
@@ -38,9 +44,9 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
     this.contentRef = React.createRef()
   }
 
-  public handleButtonClick = (direction: string) => {
+  public handleButtonClick = (direction: Direction): void => {
     const { contentWidth, viewWidth, translateX } = this.state
-    let moveDistance: number = Math.abs(contentWidth - viewWidth > contentWidth ? viewWidth : contentWidth - viewWidth)
+    let moveDistance: number = Math.abs(contentWidth - viewWidth) > viewWidth ? viewWidth : Math.abs(contentWidth - viewWidth)
     switch (direction) {
       case 'left':
         moveDistance = translateX + moveDistance
@@ -48,6 +54,27 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
       case 'right':
         moveDistance = translateX - moveDistance
         break
+    }
+    if (moveDistance >= 0) {
+      moveDistance = 0
+    }
+    if (moveDistance <= viewWidth - contentWidth) {
+      moveDistance = viewWidth - contentWidth
+    }
+    this.setState({
+      translateX: moveDistance
+    }, () => {
+      this.setTranslateX()
+    })
+  }
+
+  public onChangeContentWidth = (current: number, prev: number): void => {
+    const { viewWidth, contentWidth } = this.state
+    let diffDistance = 0
+    let moveDistance = 0
+    if (current > viewWidth) {
+      diffDistance = prev - current
+      moveDistance = this.state.translateX + diffDistance
     }
     if (moveDistance >= 0) {
       moveDistance = 0
@@ -71,7 +98,7 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
     })
   }
 
-  public setTranslateX = () => {
+  public setTranslateX = (): void => {
     if (this.contentRef && this.contentRef.current) {
       const { translateX } = this.state
       let currentTranslateX = 0
@@ -81,7 +108,6 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
       } else {
         currentTranslateX = 0
       }
-      console.log(this.contentRef.current.style.transform)
       this.timer = window.requestAnimationFrame(function animation () {
         if ( translateX > currentTranslateX ) {
           currentTranslateX += 100
@@ -112,9 +138,13 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
     }, 50)
   }
 
-  public componentDidUpdate (prevProps: Props) {
+  public componentDidUpdate (prevProps: Props, prevState: State) {
     if (prevProps.children !== this.props.children) {
-      this.getDomWidth()
+      this.getDomWidth(() => {
+        if (this.state.contentWidth !== prevState.contentWidth && prevState.contentWidth !== 0) {
+          this.onChangeContentWidth(this.state.contentWidth, prevState.contentWidth)
+        }
+      })
     }
   }
 
@@ -126,7 +156,7 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
             <a
               href="javascript:;"
               className={Styles.button}
-              onClick={() => this.handleButtonClick('left')}
+              onClick={() => this.handleButtonClick(Direction.Left)}
             >
               <Icon style={{fontSize: '12px'}} type="left" />
             </a>
@@ -146,7 +176,7 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
             <a
               href="javascript:;"
               className={Styles.button}
-              onClick={() => this.handleButtonClick('right')}
+              onClick={() => this.handleButtonClick(Direction.Right)}
             >
               <Icon style={{fontSize: '12px'}} type="right" />
             </a>
