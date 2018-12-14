@@ -69,24 +69,24 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
   }
 
   public onChangeContentWidth = (current: number, prev: number): void => {
-    const { viewWidth, contentWidth } = this.state
-    let diffDistance = 0
-    let moveDistance = 0
-    if (current > viewWidth) {
-      diffDistance = prev - current
-      moveDistance = this.state.translateX + diffDistance
-    }
-    if (moveDistance >= 0) {
-      moveDistance = 0
-    }
-    if (moveDistance <= viewWidth - contentWidth) {
-      moveDistance = viewWidth - contentWidth
-    }
-    this.setState({
-      translateX: moveDistance
-    }, () => {
-      this.setTranslateX()
-    })
+    // const { viewWidth, contentWidth } = this.state
+    // let diffDistance = 0
+    // let moveDistance = 0
+    // if (current > viewWidth) {
+    //   diffDistance = prev - current
+    //   moveDistance = this.state.translateX + diffDistance
+    //   if (moveDistance >= 0) {
+    //     moveDistance = 0
+    //   }
+    //   if (moveDistance <= viewWidth - contentWidth) {
+    //     moveDistance = viewWidth - contentWidth
+    //   }
+    //   this.setState({
+    //     translateX: moveDistance
+    //   }, () => {
+    //     this.setTranslateX()
+    //   })
+    // }
   }
 
   public getDomWidth (callback: () => void = () => {}): void {
@@ -142,7 +142,7 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
     if (prevProps.children !== this.props.children) {
       this.getDomWidth(() => {
         if (this.state.contentWidth !== prevState.contentWidth && prevState.contentWidth !== 0) {
-          this.onChangeContentWidth(this.state.contentWidth, prevState.contentWidth)
+          // this.onChangeContentWidth(this.state.contentWidth, prevState.contentWidth)
         }
       })
     }

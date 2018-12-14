@@ -13,10 +13,13 @@ function routerRecord (
         title: action.title
       }))
     case RouterRecordActions.DELETE_ROUTER_RECORD:
-      return state.delete(Immutable.Map({
+      const newState = state.delete(Immutable.Map({
         path: action.path,
         title: action.title
       }))
+      const last = newState.last(Immutable.Map({ path: '/' }))
+      action.callback(last.get('path', '/'))
+      return newState
     default:
       return state
   }

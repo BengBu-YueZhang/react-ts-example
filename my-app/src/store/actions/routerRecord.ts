@@ -13,7 +13,8 @@ export interface AddRouterRecord {
 export interface DeleteRouterRecord {
   type: DELETE_ROUTER_RECORD,
   path: string,
-  title: string
+  title: string,
+  callback: (path: string) => void
 }
 
 export function addRouterRecord (path: string, title: string): AddRouterRecord {
@@ -24,10 +25,11 @@ export function addRouterRecord (path: string, title: string): AddRouterRecord {
   }
 }
 
-export function deleteRouterRecord(path: string, title: string): DeleteRouterRecord {
+export function deleteRouterRecord(path: string, title: string, callback: (path: string) => void): DeleteRouterRecord {
   return {
     type: DELETE_ROUTER_RECORD,
     title,
     path,
+    callback
   }
 }

@@ -7,6 +7,12 @@ import StoreState from '../../store/types';
 import * as ReactRouterDom from 'react-router-dom';
 import { Tag } from 'antd';
 import * as Immutable from 'immutable';
+import { deleteRouterRecord } from '../../store/actions/routerRecord';
+
+interface RouterRecordInterface {
+  handleCloseTag: (path: string, title: string, event: any) => void;
+  handleClickTag: (path: string) => void;
+}
 
 const withRouter = ReactRouterDom.withRouter;
 
@@ -16,7 +22,20 @@ const mapStateToProps = (state: StoreState) => {
   }
 }
 
-class RouterRecord extends React.Component<any, object> {
+class RouterRecord extends React.Component<any, object> implements RouterRecordInterface {
+
+  public handleCloseTag = (path: string, title: string, event: any):void => {
+    this.props.dispatch(
+      deleteRouterRecord(path, title, this.props.history.push)
+    );
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  public handleClickTag = (path: string):void => {
+    this.props.history.push(path);
+  } 
+
   public render () {
     const pathname = this.props.location.pathname
     return (
@@ -28,6 +47,9 @@ class RouterRecord extends React.Component<any, object> {
                 <Tag
                   color={pathname === record.get('path') ? '#87d068' : '#2db7f5'}
                   key={record.get('path')}
+                  closable={record.get('path') === pathname ? false : true}
+                  onClose={this.handleCloseTag.bind(this, record.get('path'), record.get('title'))}
+                  onClick={this.handleClickTag.bind(this, record.get('path'))}
                 >
                   {record.get('title')}
                 </Tag>
