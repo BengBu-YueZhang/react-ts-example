@@ -15,9 +15,14 @@
 }
 
 .middle-view {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   flex: 1;
   overflow: hidden;
+  min-height: 32px;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .middle-content {

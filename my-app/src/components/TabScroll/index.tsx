@@ -18,7 +18,7 @@ interface TabScrollInterface {
   timer: number;
   handleButtonClick: (direction: string) => void;
   setTranslateX: () => void
-  getDomWidth: () => void
+  getDomWidth: (callback: () => {}) => void
 }
 
 class TabScroll extends React.Component<Props, State> implements TabScrollInterface {
@@ -62,11 +62,13 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
     })
   }
 
-  public getDomWidth (): void {
+  public getDomWidth (callback: () => void = () => {}): void {
     const contentWidth: number = this.contentRef.current ? this.contentRef.current.getBoundingClientRect().width : 0
     const viewWidth: number = this.viewRef.current ? this.viewRef.current.getBoundingClientRect().width : 0
-    const translateX = 0
-    this.setState({ contentWidth, viewWidth, translateX })
+    const translateX = this.state.translateX ? this.state.translateX : 0
+    this.setState({ contentWidth, viewWidth, translateX }, () => {
+      callback()
+    })
   }
 
   public setTranslateX = () => {
@@ -106,8 +108,7 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
 
   public componentDidMount () {
     setTimeout(() => {
-      this.getDomWidth()
-      this.setTranslateX()
+      this.getDomWidth(this.setTranslateX)
     }, 50)
   }
 

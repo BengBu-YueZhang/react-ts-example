@@ -13,6 +13,7 @@
     "import-sources-order": "any",
     "named-imports-order": "any",
     "no-console": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "no-empty": false
   }
 }
