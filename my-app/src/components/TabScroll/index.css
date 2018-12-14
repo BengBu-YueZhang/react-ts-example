@@ -2,14 +2,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 32px;
 }
 
-.left-button {
+.button {
   flex: 0 0 32px;
-}
-
-.right-button {
-  flex: 0 0 32px;
+  min-height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #616161;
 }
 
 .middle-view {
