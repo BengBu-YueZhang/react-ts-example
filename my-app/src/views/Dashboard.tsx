@@ -5,8 +5,8 @@ export interface Props {
 }
 
 class Dashboard extends React.Component<Props, object> {
+
   public render () {
-    console.log(this.props)
     return (
       <div>
         仪表盘

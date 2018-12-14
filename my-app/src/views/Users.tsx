@@ -5,6 +5,7 @@ export interface Props {
 }
 
 class Users extends React.Component<Props, object> {
+
   public render () {
     return (
       <div>

@@ -24,8 +24,7 @@ export default class RouterConfig extends React.Component {
             render={
               ({ location }) => {
                 return ( 
-                  <Switch location={location}>
-                    <Redirect from="/" to="/dashboard" exact={true} />
+                  <React.Fragment>
                     <Route path={'/login'} component={LogIn} />
                     <LayoutView>
                       <TransitionGroup>
@@ -42,11 +41,12 @@ export default class RouterConfig extends React.Component {
                           <Switch location={location}>
                             <AuthorizedRoute path="/users" component={Users}/>
                             <AuthorizedRoute path='/dashboard' component={Dashboard}/>
+                            <Redirect from="/" to="/dashboard" exact={true} />
                           </Switch>
                         </CSSTransition>
                       </TransitionGroup>
                     </LayoutView>
-                  </Switch>
+                  </React.Fragment>
                 )
               }
             }
