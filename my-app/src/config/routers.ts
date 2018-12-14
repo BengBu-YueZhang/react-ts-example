@@ -8,6 +8,10 @@ export interface RouterMap {
 }
 
 const routerMap: RouterMap = {
+  '/login': {
+    name: '登录',
+    requiresAuth: false
+  },
   '/dashboard': {
     name: '仪表盘',
     requiresAuth: false

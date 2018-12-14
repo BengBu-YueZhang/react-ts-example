@@ -4,6 +4,9 @@ import * as Styles from './index.css';
 import { connect } from 'react-redux';
 import { getRouterRecords } from '../../store/selectors/routerRecord';
 import StoreState from '../../store/types';
+import * as ReactRouterDom from 'react-router-dom';
+
+const withRouter = ReactRouterDom.withRouter;
 
 const mapStateToProps = (state: StoreState) => {
   return {
@@ -24,4 +27,4 @@ class RouterRecord extends React.Component<any, object> {
   }
 }
 
-export default connect(mapStateToProps)(RouterRecord)
+export default withRouter<any>(connect(mapStateToProps)(RouterRecord))
