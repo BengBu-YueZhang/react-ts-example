@@ -13,18 +13,19 @@ interface State {
 }
 
 interface TabScrollInterface {
-  rootRef: React.RefObject<HTMLDivElement>;
   viewRef: React.RefObject<HTMLDivElement>;
   contentRef: React.RefObject<HTMLDivElement>;
+  timer: number;
   handleButtonClick: (direction: string) => void;
   setTranslateX: () => void
+  getDomWidth: () => void
 }
 
 class TabScroll extends React.Component<Props, State> implements TabScrollInterface {
 
-  public rootRef!: React.RefObject<HTMLDivElement>;
   public viewRef!: React.RefObject<HTMLDivElement>;
   public contentRef!: React.RefObject<HTMLDivElement>;
+  public timer!: number;
 
   constructor (props: Props) {
     super(props)
@@ -61,29 +62,64 @@ class TabScroll extends React.Component<Props, State> implements TabScrollInterf
     })
   }
 
+  public getDomWidth (): void {
+    const contentWidth: number = this.contentRef.current ? this.contentRef.current.getBoundingClientRect().width : 0
+    const viewWidth: number = this.viewRef.current ? this.viewRef.current.getBoundingClientRect().width : 0
+    const translateX = 0
+    this.setState({ contentWidth, viewWidth, translateX })
+  }
+
   public setTranslateX = () => {
     if (this.contentRef && this.contentRef.current) {
       const { translateX } = this.state
-      this.contentRef.current.style.transform = `translate3d(${translateX}px, 0, 0)`
+      let currentTranslateX = 0
+      const that = this
+      if (this.contentRef.current.style && this.contentRef.current.style.transform) {
+        currentTranslateX = parseInt(this.contentRef.current.style.transform.split('(')[1].split(',')[0].split('px')[0], 10)
+      } else {
+        currentTranslateX = 0
+      }
+      console.log(this.contentRef.current.style.transform)
+      this.timer = window.requestAnimationFrame(function animation () {
+        if ( translateX > currentTranslateX ) {
+          currentTranslateX += 100
+          if (currentTranslateX >= translateX) {
+            currentTranslateX = translateX
+          }       
+        } else {
+          currentTranslateX -= 100
+          if (currentTranslateX <= translateX) {
+            currentTranslateX = translateX
+          }
+        }
+        if (that.contentRef && that.contentRef.current) {
+          that.contentRef.current.style.transform = `translate3d(${currentTranslateX}px, 0, 0)`
+        }
+        if (currentTranslateX === translateX) {
+          window.cancelAnimationFrame(that.timer)
+        } else {
+          that.timer = window.requestAnimationFrame(animation)
+        }
+      })
     }
   }
 
   public componentDidMount () {
-    const contentWidth: number = this.contentRef.current ? this.contentRef.current.getBoundingClientRect().width : 0
-    const viewWidth: number = this.viewRef.current ? this.viewRef.current.getBoundingClientRect().width : 0
-    const translateX = 0
-    this.setState({ contentWidth, viewWidth, translateX }, () => {
+    setTimeout(() => {
+      this.getDomWidth()
       this.setTranslateX()
-    })
+    }, 50)
   }
 
-  public componentDidUpdate () {
-    console.log('componentDidUpdate')
+  public componentDidUpdate (prevProps: Props) {
+    if (prevProps.children !== this.props.children) {
+      this.getDomWidth()
+    }
   }
 
   public render () {
     return (
-      <div className={Styles.root} ref={this.rootRef}>
+      <div className={Styles.root}>
         {
           this.state.contentWidth > this.state.viewWidth && (
             <a
