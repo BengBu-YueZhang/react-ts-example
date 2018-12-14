@@ -1,10 +1,20 @@
 import * as React from 'react';
+import { addRouterRecord } from '../store/actions/routerRecord';
+import { connect } from 'react-redux';
+import RouterMap from '../config/routers';
 
 export interface Props {
   [key: string]: any;
 }
 
 class Users extends React.Component<Props, object> {
+
+  public componentDidMount () {
+    this.props.dispatch(addRouterRecord(
+      this.props.location.pathname,
+      RouterMap[this.props.location.pathname].name
+    ))
+  }
 
   public render () {
     return (
@@ -18,4 +28,4 @@ class Users extends React.Component<Props, object> {
   }
 }
 
-export default Users
+export default connect()(Users)

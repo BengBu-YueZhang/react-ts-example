@@ -1,19 +1,17 @@
 import * as React from 'react';
-import * as ReactRouterDom from 'react-router-dom';
+import * as ReactRouterDom from 'react-router-dom'; 
 import RouterMap from '../config/routers';
 import { getSessionStorage } from '../util/storage';
+import { connect } from 'react-redux';
 
-export interface Location {
+interface Location {
   pathname: string;
   [key: string]: any;
 }
 
-export interface Props {
-  [key: string]: any; 
-}
-
 const Route = ReactRouterDom.Route;
 const Redirect = ReactRouterDom.Redirect;
+const withRouter = ReactRouterDom.withRouter;
 
 function authenticate (location: Location): boolean {
   const pathSnippets: string[] = location.pathname.split('/').filter(i => i);
@@ -29,7 +27,7 @@ function authenticate (location: Location): boolean {
   return false
 }
 
-class AuthorizedRoute extends React.Component<Props, object> {
+class AuthorizedRoute extends React.Component<any, object> {
   public render () {
     const { component: Component, ...rest } = this.props
     return (
@@ -45,4 +43,4 @@ class AuthorizedRoute extends React.Component<Props, object> {
   }
 }
 
-export default AuthorizedRoute
+export default withRouter<any>(connect()(AuthorizedRoute));
