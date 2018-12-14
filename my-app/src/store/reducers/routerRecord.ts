@@ -8,12 +8,15 @@ function routerRecord (
 ): StoreState['routerRecords'] {
   switch (action.type) {
     case RouterRecordActions.ADD_ROUTER_RECORD:
-      return state.push(Immutable.Map({
+      return state.add(Immutable.Map({
         path: action.path,
         title: action.title
       }))
     case RouterRecordActions.DELETE_ROUTER_RECORD:
-      return state.remove(action.index)
+      return state.delete(Immutable.Map({
+        path: action.path,
+        title: action.title
+      }))
     default:
       return state
   }

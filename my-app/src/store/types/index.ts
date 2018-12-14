@@ -1,5 +1,5 @@
 import * as Immutable from 'immutable';
 
 export default interface StoreState {
-  routerRecords: Immutable.List<Immutable.Map<string, string>>;
+  routerRecords: Immutable.Set<Immutable.Map<string, string>>;
 }
