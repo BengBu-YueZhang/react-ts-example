@@ -5,16 +5,16 @@ export type ADD_ROUTER_RECORD = typeof ADD_ROUTER_RECORD
 export type DELETE_ROUTER_RECORD = typeof DELETE_ROUTER_RECORD
 
 export interface AddRouterRecord {
-  type: ADD_ROUTER_RECORD,
-  path: string,
-  title: string
+  type: ADD_ROUTER_RECORD;
+  path: string;
+  title: string;
 }
 
 export interface DeleteRouterRecord {
-  type: DELETE_ROUTER_RECORD,
-  path: string,
-  title: string,
-  callback: (path: string) => void
+  type: DELETE_ROUTER_RECORD;
+  path: string;
+  title: string;
+  callback: (path: string) => void;
 }
 
 export function addRouterRecord (path: string, title: string): AddRouterRecord {

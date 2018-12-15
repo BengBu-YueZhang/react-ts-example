@@ -7,6 +7,8 @@ import Users from './views/Users';
 import Dashboard from './views/Dashboard';
 import * as ReactTransitionGroup from 'react-transition-group';
 import * as Styles from './router.css';
+import { Spin } from 'antd';
+import { connect } from 'react-redux';
 
 const HashRouter = ReactRouterDom.HashRouter;
 const Route = ReactRouterDom.Route;
@@ -15,7 +17,7 @@ const Switch = ReactRouterDom.Switch;
 const CSSTransition = ReactTransitionGroup.CSSTransition;
 const TransitionGroup = ReactTransitionGroup.TransitionGroup;
 
-export default class RouterConfig extends React.Component {
+class RouterConfig extends React.Component {
   public render () {
     return (
       <div>
@@ -23,29 +25,31 @@ export default class RouterConfig extends React.Component {
           <Route
             render={
               ({ location }) => {
-                return ( 
+                return (
                   <React.Fragment>
-                    <Route path={'/login'} component={LogIn} />
-                    <LayoutView>
-                      <TransitionGroup>
-                        <CSSTransition
-                          key={location.pathname}
-                          classNames={{
-                            enter: Styles.fadeEnter,
-                            enterActive: Styles.fadeEnterActive,
-                            enterDone: Styles.fadeEnterDone,
-                            exit: Styles.fadeExit
-                          }}
-                          timeout={300}
-                        >
-                          <Switch location={location}>
-                            <AuthorizedRoute path="/users" component={Users}/>
-                            <AuthorizedRoute path='/dashboard' component={Dashboard}/>
-                            <Redirect from="/" to="/dashboard" exact={true} />
-                          </Switch>
-                        </CSSTransition>
-                      </TransitionGroup>
-                    </LayoutView>
+                    <Spin spinning={false}>
+                      <Route path={'/login'} component={LogIn} />
+                      <LayoutView>
+                        <TransitionGroup>
+                          <CSSTransition
+                            key={location.pathname}
+                            classNames={{
+                              enter: Styles.fadeEnter,
+                              enterActive: Styles.fadeEnterActive,
+                              enterDone: Styles.fadeEnterDone,
+                              exit: Styles.fadeExit
+                            }}
+                            timeout={300}
+                          >
+                            <Switch location={location}>
+                              <AuthorizedRoute path="/users" component={Users}/>
+                              <AuthorizedRoute path='/dashboard' component={Dashboard}/>
+                              <Redirect from="/" to="/dashboard" exact={true} />
+                            </Switch>
+                          </CSSTransition>
+                        </TransitionGroup>
+                      </LayoutView>
+                    </Spin>
                   </React.Fragment>
                 )
               }
@@ -56,3 +60,5 @@ export default class RouterConfig extends React.Component {
     )
   }
 }
+
+export default connect()(RouterConfig);

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Styles from './LogIn.css';
 import * as ReactTransitionGroup from 'react-transition-group';
 import { Form, Icon, Input, Button } from 'antd';
+import { connect } from 'react-redux'
 
 const CSSTransition = ReactTransitionGroup.CSSTransition;
 const FormItem = Form.Item;
@@ -36,7 +37,8 @@ class LogIn extends React.Component<Props, State> {
 
   public render () {
     const { getFieldDecorator, getFieldError, getFieldsError, isFieldTouched } = this.props.form;
-    const tokenError = isFieldTouched('token') && getFieldError('token');
+    const userNameError = isFieldTouched('username') && getFieldError('username');
+    const passwordError = isFieldTouched('password') && getFieldError('password');
     return (
       <div className={Styles.wrapper}>
         <CSSTransition
@@ -55,20 +57,39 @@ class LogIn extends React.Component<Props, State> {
                 <div className={Styles.root}>
                   <Form>
                     <FormItem
-                      validateStatus={tokenError ? 'error' : undefined}
+                      validateStatus={userNameError ? 'error' : undefined}
                     >
                       {
                         getFieldDecorator(
-                          'token',
+                          'username',
                           {
-                            rules: [{ required: true, message: '请输入您的token' }],
+                            rules: [{ required: true, message: '请输入您的用户名' }],
+                          }
+                        )(
+                          <Input
+                            prefix={
+                              <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                            }
+                            placeholder="username"
+                          />
+                        )
+                      }
+                    </FormItem>
+                    <FormItem
+                      validateStatus={passwordError ? 'error' : undefined}
+                    >
+                      {
+                        getFieldDecorator(
+                          'password',
+                          {
+                            rules: [{ required: true, message: '请输入您的密码' }],
                           }
                         )(
                           <Input
                             prefix={
                               <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
                             }
-                            placeholder="Access Token"
+                            placeholder="password"
                           />
                         )
                       }
@@ -96,5 +117,4 @@ class LogIn extends React.Component<Props, State> {
   }
 }
 
-export default Form.create()(LogIn)
-
+export default connect()(Form.create()(LogIn))
