@@ -16,6 +16,7 @@ export interface LoadingStart {
 
 export interface LoadingEnd {
   type: LOADING_END;
+  style: SpinType;
 }
 
 export function loadingStart(style: SpinType): LoadingStart {
@@ -25,8 +26,9 @@ export function loadingStart(style: SpinType): LoadingStart {
   }
 }
 
-export function loadingEnd(): LoadingEnd {
+export function loadingEnd(style: SpinType): LoadingEnd {
   return {
-    type: LOADING_END
+    type: LOADING_END,
+    style
   }
 }
