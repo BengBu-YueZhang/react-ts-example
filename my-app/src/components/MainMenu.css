@@ -2,6 +2,10 @@
   background-color: #2f363f !important;
 }
 
+:global(.ant-menu) {
+  border: none;
+}
+
 :global(.ant-menu-item) {
   background-color: #2f363f !important;
 }

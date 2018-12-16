@@ -10,6 +10,7 @@ class MainMenu extends React.Component<any, object> {
       <Menu
         className={Styles.root}
         defaultSelectedKeys={[this.props.location.pathname]}
+        selectedKeys={[this.props.location.pathname]}
       >
         <Menu.Item key="/dashboard">
           <Link to="/dashboard">
