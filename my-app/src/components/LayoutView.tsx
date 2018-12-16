@@ -22,7 +22,6 @@ const mapStateToProps = (state: StoreState) => {
 
 class LayoutView extends React.Component<any, object> {
   public render () {
-    console.log(this.props)
     return (
       <React.Fragment>
         <Layout className={Styles.layout}>
