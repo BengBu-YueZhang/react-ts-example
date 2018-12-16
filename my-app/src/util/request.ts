@@ -8,7 +8,7 @@ export function login (): Promise<any> {
         token: 'love199471',
         msg: 'success'
       })
-    }, 500)
+    }, 2000)
   })
 }
 

@@ -9,6 +9,9 @@ import * as ReactTransitionGroup from 'react-transition-group';
 import * as Styles from './router.css';
 import { Spin } from 'antd';
 import { connect } from 'react-redux';
+import StoreState from './store/types';
+import { getSpinStatus } from './store/selectors/spin';
+import * as SpinActions from './store/actions/spin';
 
 const HashRouter = ReactRouterDom.HashRouter;
 const Route = ReactRouterDom.Route;
@@ -17,6 +20,11 @@ const Switch = ReactRouterDom.Switch;
 const CSSTransition = ReactTransitionGroup.CSSTransition;
 const TransitionGroup = ReactTransitionGroup.TransitionGroup;
 
+const mapStateToProps = (state: StoreState) => {
+  return {
+    spinStatus: getSpinStatus(state)
+  }
+}
 
 class RouterConfig extends React.Component<any, object> {
   public render () {
@@ -28,7 +36,7 @@ class RouterConfig extends React.Component<any, object> {
               ({ location }) => {
                 return (
                   <React.Fragment>
-                    <Spin spinning={false}>
+                    <Spin spinning={this.props.spinStatus.get(SpinActions.SpinType.Global)}>
                       <Route path={'/login'} component={LogIn} />
                       <LayoutView>
                         <TransitionGroup>
@@ -62,4 +70,4 @@ class RouterConfig extends React.Component<any, object> {
   }
 }
 
-export default connect()(RouterConfig);
+export default connect(mapStateToProps)(RouterConfig);

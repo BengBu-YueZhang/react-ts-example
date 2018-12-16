@@ -78,7 +78,7 @@ class LogIn extends React.Component<any, State> {
                             prefix={
                               <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
                             }
-                            placeholder="username"
+                            placeholder="username(任意即可)"
                           />
                         )
                       }
@@ -97,7 +97,7 @@ class LogIn extends React.Component<any, State> {
                             prefix={
                               <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
                             }
-                            placeholder="password"
+                            placeholder="password(任意即可)"
                           />
                         )
                       }
