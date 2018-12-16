@@ -30,6 +30,7 @@ function* logout(): any {
     // 暂时不做处理, 应当给予消息提示
   } finally {
     yield put(SpinActions.loadingEnd(SpinActions.SpinType.Global));
+    
   }
 }
 
@@ -39,6 +40,9 @@ export default function* main(): any {
     if (!isHaveSessionStorage('token')) {
       const { username, password, callback } = yield take(LoginActions.LOGIN_REQUEST);
       yield fork(authorize, username, password, callback);
+      // console.log('username', username)
+      // console.log('password', password)
+      // console.log('callback', callback)
     }
     yield take([LoginActions.LOGIN_ERROR, LoginActions.LOGOUT]);
     yield call(logout);

@@ -17,7 +17,8 @@ const Switch = ReactRouterDom.Switch;
 const CSSTransition = ReactTransitionGroup.CSSTransition;
 const TransitionGroup = ReactTransitionGroup.TransitionGroup;
 
-class RouterConfig extends React.Component {
+
+class RouterConfig extends React.Component<any, object> {
   public render () {
     return (
       <div>

@@ -2,7 +2,8 @@ import * as React from 'react';
 import * as Styles from './LogIn.css';
 import * as ReactTransitionGroup from 'react-transition-group';
 import { Form, Icon, Input, Button } from 'antd';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import * as LoginActions from '../store/actions/login';
 
 const CSSTransition = ReactTransitionGroup.CSSTransition;
 const FormItem = Form.Item;
@@ -12,27 +13,34 @@ function hasErrors(fieldsError: object): boolean {
 }
 
 export interface State {
-  token: string;
+  username: string;
+  password: string;
   form: boolean;
 }
 
-export interface Props {
-  form: any;
-}
 
-class LogIn extends React.Component<Props, State> {
-  constructor (props: Props) {
+class LogIn extends React.Component<any, State> {
+  constructor (props: any) {
     super(props)
     this.state = {
       form: false,
-      token: '',
+      username: '',
+      password: ''
     }
+    console.log(this.props)
   }
 
-  public componentDidMount (): void {
+  public componentDidMount(): void {
     this.setState({
       form: true
     })
+  }
+
+  public handleLoginClick = (): void => {
+    const { username, password } = this.props.form.getFieldsValue()
+    this.props.dispatch(LoginActions.loginRequest(
+      username, password, () => this.props.history.push('/')
+    ))
   }
 
   public render () {
@@ -102,6 +110,7 @@ class LogIn extends React.Component<Props, State> {
                           hasErrors(getFieldsError())
                         }
                         block={true}
+                        onClick={this.handleLoginClick}
                       >
                         登录
                       </Button>

@@ -14,11 +14,11 @@ const routerMap: RouterMap = {
   },
   '/dashboard': {
     name: '仪表盘',
-    requiresAuth: false
+    requiresAuth: true
   },
   '/users': {
     name: '用户列表',
-    requiresAuth: false
+    requiresAuth: true
   }
 }
 

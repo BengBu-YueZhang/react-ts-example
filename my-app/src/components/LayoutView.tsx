@@ -23,7 +23,7 @@ class LayoutView extends React.Component<Props, object> {
             <RouterRecord/>
             <Breadcrumbs/>
             <Content className={Styles.content}>
-              <Spin spinning={true}>
+              <Spin spinning={false}>
                 {
                   this.props.children
                 }

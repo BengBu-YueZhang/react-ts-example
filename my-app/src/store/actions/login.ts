@@ -10,6 +10,9 @@ export type LOGOUT = typeof LOGOUT;
 
 export interface LoginRequest {
   type: LOGIN_REQUEST;
+  username: string,
+  password: string,
+  callback: () => void
 }
 
 export interface LoginSuccess {
@@ -24,9 +27,12 @@ export interface Logout {
   type: LOGOUT
 }
 
-export function loginRequest(): LoginRequest {
+export function loginRequest(username: string, password: string, callback: () => void): LoginRequest {
   return {
-    type: LOGIN_REQUEST
+    type: LOGIN_REQUEST,
+    username,
+    password,
+    callback
   }
 }
 
