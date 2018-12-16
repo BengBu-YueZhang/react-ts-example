@@ -5,6 +5,8 @@ import Breadcrumbs from './Breadcrumbs';
 import RouterRecord from './RouterRecord';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import HeaderNav from './HeaderNav';
+import MainMenu from './MainMenu';
 
 const Sider = Layout.Sider
 const Content = Layout.Content
@@ -18,8 +20,12 @@ class LayoutView extends React.Component<Props, object> {
     return (
       <React.Fragment>
         <Layout className={Styles.layout}>
-          <Sider className={Styles.sider}>Sider</Sider>
+          <Sider className={Styles.sider}>
+            <div className={Styles.logo}>新世紀エヴァンゲリオン</div>
+            <MainMenu/>
+          </Sider>
           <Layout className={Styles.contentWrapper}>
+            <HeaderNav/>
             <RouterRecord/>
             <Breadcrumbs/>
             <Content className={Styles.content}>

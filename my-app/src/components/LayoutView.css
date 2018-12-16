@@ -6,6 +6,7 @@
 .sider {
   min-height: 100vh;
   height: 100%;
+  background-color: #2f363f !important;
 }
 
 .content-wrapper {
@@ -22,4 +23,16 @@
   box-sizing: border-box;
   padding: 20px;
   background-color: #fff;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  line-height: 64px;
+  color: #fff;
+  width: 100%;
+  height: 64px;
+  background-color: #1890ff;
 }
