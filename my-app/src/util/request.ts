@@ -41,22 +41,26 @@ export function getUsers (): Promise<any> {
           {
             username: '张越',
             age: 24,
-            job: '前端开发'
+            job: '前端开发',
+            id: '001',
           },
           {
             username: '王琼',
             age: 24,
-            job: '前端开发'
+            job: '前端开发',
+            id: '002',
           },
           {
             username: '戴伟',
             age: 24,
-            job: 'Node开发'
+            job: 'Node开发',
+            id: '003',
           },
           {
             username: '李航',
             age: 24,
-            job: 'Node开发'
+            job: 'Node开发',
+            id: '004',
           }
         ]
       })

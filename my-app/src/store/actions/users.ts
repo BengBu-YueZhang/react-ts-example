@@ -10,6 +10,7 @@ export interface User {
   username: string;
   age: number;
   job: string;
+  id: string
 }
 
 export interface GetUsersRequest {

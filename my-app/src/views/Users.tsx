@@ -6,12 +6,11 @@ import RouterMap from '../config/routers';
 import StoreState from '../store/types';
 import { getUsers } from '../store/selectors/users';
 import { Table, Tag } from 'antd';
-import * as UsersActions from '../store/actions/users';
 
 interface Columns {
   title: string,
   dataIndex: string,
-  render?: (row: UsersActions.User) => JSX.Element | JSX.Element[]
+  render?: (row: string) => JSX.Element | JSX.Element[]
 }
 
 interface UsersInterface {
@@ -33,7 +32,7 @@ class Users extends React.Component<any, object> implements UsersInterface {
   public columns = [
     {
       title: '姓名',
-      dataIndex: 'name',
+      dataIndex: 'username',
     },
     {
       title: '年龄',
@@ -42,9 +41,9 @@ class Users extends React.Component<any, object> implements UsersInterface {
     {
       title: '职位',
       dataIndex: 'job',
-      render: (row: UsersActions.User) => {
+      render: (job: string) => {
         return (
-          <Tag color="blue">{row.job}</Tag>
+          <Tag color="blue">{job}</Tag>
         )
       }
     }
@@ -63,6 +62,8 @@ class Users extends React.Component<any, object> implements UsersInterface {
       <div>
         <Table
           columns={this.columns}
+          rowKey={'id'}
+          dataSource={this.props.users.toJS()}
         />
       </div>
     )
